@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+    <main class="container">
+
+        <h3  class="text-center">Черновая экспедиция</h3>
+
+        <span>Статус: {{ expedition.get_status }}</span>
+        <span>Дата создания: {{ expedition.date_created }}</span>
+
+        <form method="post" action="/expeditions/{{ expedition.id }}/delete/">
+            {% csrf_token %}
+                <button class="btn btn-danger delete-draft-expedition-btn" type="submit">
+                    Удалить
+                </button>
+            </a>
+        </form>
+
+        <h4 class="text-center">Альпинисты</h4>
+
+        <div class="cards-wrapper d-flex flex-column">
+
+            {% for climber in expedition.get_climbers %}
+
+                {% include "climber_card.html" %}
+
+            {% endfor %}
+
+        </div>
+
+    </main>
+{% endblock content %}
